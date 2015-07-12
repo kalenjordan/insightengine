@@ -46,8 +46,8 @@
         font-size: 3em;
     }
 
-    .marketing.hero-call-to-action form {
-        /* padding-top: 10em; */
+    .marketing.marketing-main h3 {
+        text-align: center;
     }
 }
 
@@ -55,16 +55,23 @@
     color: #0078e7;
 }
 
-.marketing.marketing-main h3 {
-    text-align: center;
-}
 
 .marketing-last {
     border-bottom: none;
     padding-bottom: 0;
 }
 
-.logo {
-    font-family: sans-serif;
-    text-transform: uppercase;
+.screenshot {
+    box-shadow: rgba(0, 0, 0, 0.74902) 0px 0px 37px 0px;
+}
+
+p.mandrill-validation-status {
+    margin-top: 0;
+    font-size: 70%;
+    .success {
+        color: #5eb95e;
+    }
+    .error {
+        color: #dd514c;
+    }
 }

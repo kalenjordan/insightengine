@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200">
     <link rel="stylesheet" href="http://purecss.io//combo/1.18.13?/css/main-grid.css&/css/main.css&/css/home.css&/css/rainbow/baby-blue.css">
     <link rel="stylesheet" href="/skin/css/main.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 <body>
     <div id="layout">
@@ -43,23 +44,48 @@
         </div>
 
         <div class="marketing hero-call-to-action l-wrap pure-g">
-            <div class="marketing-diagram content pure-u-1 u-sm-2-3 u-md-1-2">
-                <a href="/layouts/">
+            <div class="signup-step-1">
+                <div class="marketing-diagram content pure-u-1 u-sm-2-3 u-md-1-2">
                     <img src="/skin/images/phone-with-email.png" class="pure-img-responsive" alt="Diagram of a sample layout.">
-                </a>
+                </div>
+
+                <div class="content hero-form-wrapper pure-u-1 u-md-1-2">
+                    <h3 class="marketing-header">Free Mandrill Tag Monitoring</h3>
+                    <p>
+                        Sign up for free below to begin receiving notifications when there
+                        are any hiccups in your Mandrill delivery.  Get started <span class="highlight">in 30 seconds flat</span>.
+                    </p>
+                    <form class="pure-form">
+                        <fieldset>
+                            <a class="pure-button pure-button-primary button-start">Get Started Free <i class="fa fa-arrow-right"></i> </a>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
 
-            <div class="content hero-form-wrapper pure-u-1 u-md-1-2">
-                <h3 class="marketing-header">Get started in <span class="highlight">30 seconds flat</span>.</h3>
-                <p>
-                    Sign up for free below to begin receiving notifications when there
-                    are any hiccups in your Mandrill delivery.
-                </p>
-                <form class="pure-form">
-                    <fieldset>
-                        <button type="submit" class="pure-button pure-button-primary">Get Started Free <i class="fa fa-arrow-right"></i> </button>
-                    </fieldset>
-                </form>
+            <div class="signup-step-2" style="display: none;">
+                <div class="marketing-diagram content pure-u-1 u-sm-2-3 u-md-1-2">
+                    <img src="/skin/images/mandrill-settings.jpg" class="screenshot pure-img-responsive" alt="Diagram of a sample layout.">
+                </div>
+
+                <div class="content hero-form-wrapper pure-u-1 u-md-1-2">
+                    <h3 class="marketing-header">Enter your Mandrill API Key</h3>
+                    <p>
+                        Copy your Mandrill API key from <i>Settings</i> > <i>API Keys</i>
+                        and then hit <i>Save</i>.
+                    </p>
+                    <form class="pure-form">
+                        <fieldset>
+                            <input class="mandrill-api-key" type="text" placeholder="Mandrill API Key"/>
+                            <a class="pure-button pure-button-primary button-save">Next</a>
+                        </fieldset>
+                    </form>
+                    <p class="mandrill-validation-status" style="display: none;">
+                        <span class="checking"><i class="fa fa-spinner fa-spin"></i> Checking</span>
+                        <span class="success" style="display: none;"><i class="fa fa-check"></i> Looks good!  Connected to Mandrill account for <span class="mandrill-username">username</span></span>
+                        <span class="error" style="display: none;"><i class="fa fa-frown-o"></i> Error</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -118,6 +144,6 @@
     </div>
     </div>
 
-    <script src="http://purecss.io//combo/1.18.13?/js/ui.js&/vendor/rainbow/rainbow.min.js&/vendor/rainbow/language/generic.js&/vendor/rainbow/language/html.js&/vendor/rainbow/language/css.js&/vendor/rainbow/language/javascript.js&/vendor/rainbow/language/shell.js"></script>
+    <script src="/js/ui.js"></script>
 </body>
 </html>
