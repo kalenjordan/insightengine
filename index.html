@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,134 +14,132 @@
 </head>
 <body>
     <div id="layout">
-    <a href="#menu" id="menuLink" class="menu-link">
-        <span></span>
-    </a>
-    <div id="menu">
-        <div class="pure-menu">
-            <a class="pure-menu-heading" href="/"><span class="insight">Insight</span><span class="engine">Engine</span></a>
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item">
-                    <a href="/start/" class="pure-menu-link">About</a>
-                </li>
+        <a href="#menu" id="menuLink" class="menu-link">
+            <span></span>
+        </a>
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="/"><span class="insight">Insight</span><span class="engine">Engine</span></a>
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item">
+                        <a href="/start/" class="pure-menu-link">About</a>
+                    </li>
 
-                <li class="pure-menu-item">
-                    <a href="/layouts/" class="pure-menu-link">Log In</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
-    <div id="main">
-    <div class="hero">
-        <div class="hero-titles">
-            <h2 class="hero-tagline">
-                Don't get caught with your pants down the next time
-                your email cron breaks.
-            </h2>
+                    <li class="pure-menu-item">
+                        <a href="/layouts/" class="pure-menu-link">Log In</a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <div class="marketing hero-call-to-action l-wrap pure-g">
-            <div class="signup-step-1">
-                <div class="marketing-diagram content pure-u-1 u-sm-2-3 u-md-1-2">
-                    <img src="/skin/images/phone-with-email.png" class="pure-img-responsive" alt="Diagram of a sample layout.">
+        <div id="main">
+            <div class="hero">
+                <div class="hero-titles">
+                    <h2 class="hero-tagline">
+                        Don't get caught with your pants down the next time
+                        your email cron breaks.
+                    </h2>
                 </div>
 
-                <div class="content hero-form-wrapper pure-u-1 u-md-1-2">
-                    <h3 class="marketing-header">Free Mandrill Tag Monitoring</h3>
+                <div class="marketing hero-call-to-action l-wrap pure-g">
+                    <div class="signup-step-1">
+                        <div class="marketing-diagram content pure-u-1 u-sm-2-3 u-md-1-2">
+                            <img src="/skin/images/phone-with-email.png" class="pure-img-responsive" alt="Diagram of a sample layout.">
+                        </div>
+
+                        <div class="content hero-form-wrapper pure-u-1 u-md-1-2">
+                            <h3 class="marketing-header">Free Mandrill Tag Monitoring</h3>
+                            <p>
+                                Sign up for free below to begin receiving notifications when there
+                                are any hiccups in your Mandrill delivery.  Get started <span class="highlight">in 30 seconds flat</span>.
+                            </p>
+                            <form class="pure-form">
+                                <fieldset>
+                                    <a class="pure-button pure-button-primary button-start">Get Started Free <i class="fa fa-arrow-right"></i> </a>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="signup-step-2" style="display: none;">
+                        <div class="marketing-diagram content pure-u-1 u-sm-2-3 u-md-1-2">
+                            <img src="/skin/images/mandrill-settings.jpg" class="screenshot pure-img-responsive" alt="Diagram of a sample layout.">
+                        </div>
+
+                        <div class="content hero-form-wrapper pure-u-1 u-md-1-2">
+                            <h3 class="marketing-header">Enter your Mandrill API Key</h3>
+                            <p>
+                                Copy your Mandrill API key from <i>Settings</i> > <i>API Keys</i>
+                                and then hit <i>Save</i>.
+                            </p>
+                            <form class="pure-form">
+                                <fieldset>
+                                    <input class="mandrill-api-key" type="text" placeholder="Mandrill API Key"/>
+                                    <a class="pure-button pure-button-primary button-save">Next</a>
+                                </fieldset>
+                            </form>
+                            <p class="mandrill-validation-status" style="display: none;">
+                                <span class="checking"><i class="fa fa-spinner fa-spin"></i> Checking</span>
+                                <span class="success" style="display: none;"><i class="fa fa-check"></i> Looks good!  Connected to Mandrill account for <span class="mandrill-username">username</span></span>
+                                <span class="error" style="display: none;"><i class="fa fa-frown-o"></i> Error</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="marketing marketing-main marketing-last">
+                <div class="content">
+                    <h3 class="marketing-header">Remember the last time your email system failed?</h3>
                     <p>
-                        Sign up for free below to begin receiving notifications when there
-                        are any hiccups in your Mandrill delivery.  Get started <span class="highlight">in 30 seconds flat</span>.
+                        Maybe it was the cron that sends out reminder emails for your app, or maybe
+                        it was the code that delivers order confirmation emails for your eCommerce store.
                     </p>
-                    <form class="pure-form">
-                        <fieldset>
-                            <a class="pure-button pure-button-primary button-start">Get Started Free <i class="fa fa-arrow-right"></i> </a>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-
-            <div class="signup-step-2" style="display: none;">
-                <div class="marketing-diagram content pure-u-1 u-sm-2-3 u-md-1-2">
-                    <img src="/skin/images/mandrill-settings.jpg" class="screenshot pure-img-responsive" alt="Diagram of a sample layout.">
-                </div>
-
-                <div class="content hero-form-wrapper pure-u-1 u-md-1-2">
-                    <h3 class="marketing-header">Enter your Mandrill API Key</h3>
                     <p>
-                        Copy your Mandrill API key from <i>Settings</i> > <i>API Keys</i>
-                        and then hit <i>Save</i>.
+                        You didn't even realize that email had stopped going out for like 4 days, until
+                        you got a call from an angry customer wondering why their shipping confirmation
+                        email was taking so long to get to them.
                     </p>
-                    <form class="pure-form">
-                        <fieldset>
-                            <input class="mandrill-api-key" type="text" placeholder="Mandrill API Key"/>
-                            <a class="pure-button pure-button-primary button-save">Next</a>
-                        </fieldset>
-                    </form>
-                    <p class="mandrill-validation-status" style="display: none;">
-                        <span class="checking"><i class="fa fa-spinner fa-spin"></i> Checking</span>
-                        <span class="success" style="display: none;"><i class="fa fa-check"></i> Looks good!  Connected to Mandrill account for <span class="mandrill-username">username</span></span>
-                        <span class="error" style="display: none;"><i class="fa fa-frown-o"></i> Error</span>
+                    <p>
+                        With InsightEngine, you'll be able to rest easy knowing that your Mandrill account
+                        is being proactively monitored.  InsightEngine analyzes the sending patterns of your
+                        emails by tag, and if it notices a blip in sending activity, it notifies you.
                     </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="marketing marketing-main marketing-last">
-        <div class="content">
-            <h3 class="marketing-header">Remember the last time your email system failed?</h3>
-            <p>
-                Maybe it was the cron that sends out reminder emails for your app, or maybe
-                it was the code that delivers order confirmation emails for your eCommerce store.
-            </p>
-            <p>
-                You didn't even realize that email had stopped going out for like 4 days, until
-                you got a call from an angry customer wondering why their shipping confirmation
-                email was taking so long to get to them.
-            </p>
-            <p>
-                With InsightEngine, you'll be able to rest easy knowing that your Mandrill account
-                is being proactively monitored.  InsightEngine analyzes the sending patterns of your
-                emails by tag, and if it notices a blip in sending activity, it notifies you.
-            </p>
-            <p>
-                Simple, right?
-            </p>
-        </div>
-    </div>
-
-
-        <div class="footer">
-            <div class="legal pure-g">
-                <div class="pure-u-1 u-sm-1-2">
-                    <p class="legal-license">
-                        This site is built with &lt;3 using Pure v0.6.0<br>
-                    </p>
-                </div>
-
-                <div class="pure-u-1 u-sm-1-2">
-                    <ul class="legal-links">
-                        <a href="https://github.com/yahoo/pure/">About</a>
-                        &middot;
-                        <a href="https://hackerone.com/yahoo/">Contact</a>
-                        &middot;
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-
-                        <li></li>
-                        <li></li>
-                    </ul>
-
-                    <p class="legal-copyright">
-                        &copy; 2015 InsightEngine. All rights reserved.
+                    <p>
+                        Handy, right?
                     </p>
                 </div>
             </div>
 
-        </div>
-    </div>
-    </div>
+            <div class="footer">
+                <div class="legal pure-g">
+                    <div class="pure-u-1 u-sm-1-2">
+                        <p class="legal-license">
+                            This site is built with &lt;3 using Pure v0.6.0<br>
+                        </p>
+                    </div>
+
+                    <div class="pure-u-1 u-sm-1-2">
+                        <ul class="legal-links">
+                            <a href="https://github.com/yahoo/pure/">About</a>
+                            &middot;
+                            <a href="https://hackerone.com/yahoo/">Contact</a>
+                            &middot;
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+
+                            <li></li>
+                            <li></li>
+                        </ul>
+
+                        <p class="legal-copyright">
+                            &copy; 2015 InsightEngine. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div> <!-- .footer -->
+
+        </div> <!-- #main -->
+    </div> <!-- #layout -->
 
     <script src="/js/ui.js"></script>
 </body>
