@@ -60,5 +60,9 @@ $(document).ready(function() {
         }, 1000);
     }).bind('paste', function() {
         $('.mandrill-validation-status').fadeIn();
-    })
+    });
+
+    $('.tag .tag-inner').click(function() {
+        $(this).find('.cmn-toggle').click();
+    });
 });
