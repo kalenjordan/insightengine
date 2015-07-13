@@ -65,7 +65,7 @@ $(document).ready(function() {
                     opacity: 1
                 }, 250);
             setTimeout(function() {
-                window.location = '/tags.html';
+                window.location = '/manage/';
             }, 2000);
 
         });

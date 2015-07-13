@@ -1,3 +1,6 @@
 /.idea
 /skin/css/
 /skin/.sass-cache
+/composer.lock
+/vendor
+/etc/local.json

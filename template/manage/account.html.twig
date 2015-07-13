@@ -1,0 +1,58 @@
+{% extends 'manage/_base.html.twig' %}
+
+{% block title %}Account{% endblock %}
+
+{% block content %}
+    <div class="hero border-bottom">
+        <div class="hero-titles">
+            <h2 class="hero-tagline">
+                Account
+            </h2>
+        </div>
+    </div>
+
+    <div class="marketing manage-tags marketing-last">
+        <div class="content">
+            <p>
+                You can manage your email address, password, and notification preferences
+                below.
+            </p>
+            <form class="pure-form pure-form-aligned">
+                <fieldset>
+                    <legend>Account Settings</legend>
+                    <div class="pure-control-group">
+                        <label for="email">Email Address</label>
+                        <input class="pure-input-2-3" id="email" type="email" placeholder="Email Address" value="kalen@magemail.co">
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="name">Mandrill API Key</label>
+                        <input id="name" type="text" readonly="readonly" value="32423fdsj3j2klfdsjkl32">
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="foo">Enable Notifications</label>
+                        <div class="switch" id="foo" style="display: inline;">
+                            <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" checked="checked">
+                            <label for="cmn-toggle-1" style="width: 60px;"></label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Password</legend>
+                    <div class="pure-control-group">
+                        <label for="current_password">Current Password</label>
+                        <input id="current_password" type="password" placeholder="Change password">
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="new_password">New Password</label>
+                        <input id="new_password" type="password" placeholder="Change password">
+                    </div>
+                </fieldset>
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
