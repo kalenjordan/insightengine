@@ -51,6 +51,27 @@ $(document).ready(function() {
         });
     });
 
+    $('.button-next').click(function() {
+        $('.signup-step-2').animate({
+            "margin-right": '+=50',
+            opacity: 0
+        }, 250, function() {
+            $(this).hide();
+            $('.signup-step-3').css('opacity', 0)
+                .show()
+                .css('margin-left', '50px')
+                .animate({
+                    "margin-left": '-=50',
+                    opacity: 1
+                }, 250);
+            setTimeout(function() {
+                window.location = '/tags.html';
+            }, 2000);
+
+        });
+    });
+
+
     $('.mandrill-api-key').keypress(function() {
         $('.mandrill-validation-status').fadeIn();
         setTimeout(function() {
@@ -60,9 +81,5 @@ $(document).ready(function() {
         }, 1000);
     }).bind('paste', function() {
         $('.mandrill-validation-status').fadeIn();
-    });
-
-    $('.tag .tag-inner').click(function() {
-        $(this).find('.cmn-toggle').click();
     });
 });
