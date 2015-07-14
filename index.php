@@ -17,12 +17,13 @@ if ($local->getHideExceptions()) {
     ini_set('display_errors', 'On');
 }
 
+$base = $local->getBaseRoute();
 try {
     Toro::serve(array(
-        "/"                                 => "Controller_Index",
-        "/manage"                           => "Controller_Manage_Tags",
-        "/manage/account"                   => "Controller_Manage_Account",
-        "/manage/logout"                    => "Controller_Manage_LogOut",
+        "$base/"                    => "Controller_Index",
+        "$base/manage"              => "Controller_Manage_Tags",
+        "$base/manage/account"      => "Controller_Manage_Account",
+        "$base/manage/logout"       => "Controller_Manage_LogOut",
     ));
 } catch (Exception $e) {
     if ($local->getHideExceptions()) {
