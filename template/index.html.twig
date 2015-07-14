@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200">
     <link rel="stylesheet" href="http://purecss.io//combo/1.18.13?/css/main-grid.css&/css/main.css&/css/home.css&/css/rainbow/baby-blue.css">
-    <link rel="stylesheet" href="/skin/css/main.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ base_url }}/skin/css/main.css">
 </head>
 <body>
 <div id="layout">
@@ -22,11 +21,11 @@
             <a class="pure-menu-heading" href="/"><span class="insight">Insight</span><span class="engine">Engine</span></a>
             <ul class="pure-menu-list">
                 <li class="pure-menu-item">
-                    <a href="/start/" class="pure-menu-link">About</a>
+                    <a href="#" class="pure-menu-link">About</a>
                 </li>
 
                 <li class="pure-menu-item">
-                    <a href="/layouts/" class="pure-menu-link">Log In</a>
+                    <a href="#" class="pure-menu-link">Log In</a>
                 </li>
             </ul>
         </div>
@@ -179,9 +178,9 @@
 
                 <div class="pure-u-1 u-sm-1-2">
                     <ul class="legal-links">
-                        <a href="https://github.com/yahoo/pure/">About</a>
+                        <a href="{{ base_url }}#about">About</a>
                         &middot;
-                        <a href="https://hackerone.com/yahoo/">Contact</a>
+                        <a href="mailto:info@insightengine.com">Contact</a>
                         &middot;
                         <a href="#"><i class="fa fa-twitter"></i></a>
 
@@ -199,6 +198,7 @@
     </div> <!-- #main -->
 </div> <!-- #layout -->
 
-<script src="/js/ui.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="{{ base_url }}/js/ui.js"></script>
 </body>
 </html>
