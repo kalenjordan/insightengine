@@ -40,4 +40,10 @@ class Model_Mandrill
 
         return $userData['username'];
     }
+
+    public function getTags()
+    {
+        $tags = $this->_getMandrillApi()->tags->getList();
+        return $tags;
+    }
 }

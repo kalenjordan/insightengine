@@ -35,6 +35,11 @@
                 <li class="pure-menu-item">
                     <a href="{{ base_url }}/manage/logout/" class="pure-menu-link"><i class="fa fa-sign-out"></i> Log Out</a>
                 </li>
+                {% if session.isLoggedIn() %}
+                <li class="pure-menu-item logged-in-username menu-item-divided">
+                    <a class="pure-menu-link">{{ session.getUsername() }}</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>

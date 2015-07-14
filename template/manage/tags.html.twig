@@ -12,6 +12,12 @@
     </div>
 
     <div class="marketing manage-tags marketing-last">
+        <p>
+            Below is a list of all of your tags in Mandrill, sorted by most active.
+            If tags are detected to not be active currently, they will be toggled off,
+            but you can override that manually.  This data is refreshed daily, but you
+            can also <a href="#">manually refresh it</a>.
+        </p>
         <div class="pure-g">
             <div class="tag tag-enabled pure-u-1 pure-u-md-1-2">
                 <div class="tag-inner ">
@@ -99,6 +105,24 @@
                     </div>
                 </div>
             </div>
+            {% for tag in tags %}
+                <div class="tag tag-enabled pure-u-1 pure-u-md-1-2">
+                    <div class="tag-inner ">
+                        <div class="switch">
+                            <input id="cmn-toggle-6" class="cmn-toggle cmn-toggle-round" type="checkbox" checked="checked">
+                            <label for="cmn-toggle-6"></label>
+                        </div>
+                        <div class="signals">
+                            <div class="biggest-gap good"><i class="fa fa-signal"></i> 0</div>
+                            <div class="last-sent good"><i class="fa fa-calendar"> 2h</i></div>
+                        </div>
+                        <div class="description">
+                            <div class="tag-title">{{ tag.tag }}</div>
+                            <div class="tag-subject">Welcome to TheAwesomeStore.com, Bob!</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

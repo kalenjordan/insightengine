@@ -4,12 +4,17 @@ class Controller_Manage_Tags extends Controller_Abstract
 {
     public function get()
     {
-        $local = new Model_LocalConfig();
+        $this->_requireLogin();
 
-        echo $this->_getTwig()->render('manage/tags.html.twig', array(
+        $session = new Model_Session();
+        $mandrill = $session->getMandrillApi();
+        $tags = $mandrill->getTags();
+
+        $parameters = array_merge(parent::_getTwigParameters(), array(
             'tags_menu_selected'    => true,
-            'base_url'      => $local->getBaseUrl()
+            'tags'                  => $tags,
         ));
 
+        echo $this->_getTwig()->render('manage/tags.html.twig', $parameters);
     }
 }

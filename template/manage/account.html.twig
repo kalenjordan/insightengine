@@ -22,12 +22,12 @@
                     <legend>Account Settings</legend>
                     <div class="pure-control-group">
                         <label for="email">Email Address</label>
-                        <input class="pure-input-2-3" id="email" type="email" placeholder="Email Address" value="kalen@magemail.co">
+                        <input class="pure-input-2-3" readonly="readonly" id="email" type="email" placeholder="Email Address" value="{{ session.getEmail() }}">
                     </div>
 
                     <div class="pure-control-group">
                         <label for="name">Mandrill API Key</label>
-                        <input id="name" type="text" readonly="readonly" value="32423fdsj3j2klfdsjkl32">
+                        <input class="pure-input-2-3" id="name" type="text" readonly="readonly" value="{{ session.getKey() }}">
                     </div>
 
                     <div class="pure-control-group">
@@ -38,6 +38,7 @@
                         </div>
                     </div>
                 </fieldset>
+                <!--
                 <fieldset>
                     <legend>Password</legend>
                     <div class="pure-control-group">
@@ -49,6 +50,7 @@
                         <input id="new_password" type="password" placeholder="Change password">
                     </div>
                 </fieldset>
+                -->
                 <div class="pure-controls">
                     <button type="submit" class="pure-button pure-button-primary">Save</button>
                 </div>

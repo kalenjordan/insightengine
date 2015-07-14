@@ -2,6 +2,28 @@
 
 class Controller_Abstract
 {
+    protected function _requireLogin()
+    {
+        $local = new Model_LocalConfig();
+        $baseRoute = $local->getBaseRoute();
+        $session = new Model_Session();
+
+        if (! $session->isLoggedIn()) {
+            die("Uh-oh, looks like you're not logged in yet!  <a href='/$baseRoute#login'>Login</a>");
+        }
+    }
+
+    protected function _getTwigParameters()
+    {
+        $local = new Model_LocalConfig();
+        $session = new Model_Session();
+
+        return array(
+            'session'   => $session,
+            'base_url'  => $local->getBaseUrl()
+        );
+    }
+
     protected function _getTwig()
     {
         $loader = new Twig_Loader_Filesystem(dirname(dirname(dirname(__FILE__))) . '/template');

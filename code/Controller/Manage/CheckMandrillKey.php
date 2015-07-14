@@ -21,6 +21,9 @@ class Controller_Manage_CheckMandrillKey extends Controller_Abstract
         $mandrill->setKey($apiKey);
         $username = $mandrill->getUsername();
 
+        $session = new Model_Session();
+        $session->setKey($apiKey);
+
         $this->_jsonResponse(array(
             'success'       => true,
             'username'      => $username,
