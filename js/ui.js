@@ -65,7 +65,8 @@ $(document).ready(function() {
                     opacity: 1
                 }, 250);
             setTimeout(function() {
-                window.location = '/manage/';
+                var manageUrl = $('#manage_url').val();
+                window.location = manageUrl;
             }, 2000);
 
         });
