@@ -22,17 +22,17 @@
     </a>
     <div id="menu">
         <div class="pure-menu">
-            <a class="pure-menu-heading" href="/manage/"><span class="insight">Insight</span><span class="engine">Engine</span></a>
+            <a class="pure-menu-heading" href="{{ base_url }}/manage/"><span class="insight">Insight</span><span class="engine">Engine</span></a>
             <ul class="pure-menu-list">
                 <li class="pure-menu-item {{ tags_menu_selected ? "pure-menu-selected" : "" }}">
-                    <a href="/manage/" class="pure-menu-link"><i class="fa fa-tags"></i> Tags</a>
+                    <a href="{{ base_url }}/manage/" class="pure-menu-link"><i class="fa fa-tags"></i> Tags</a>
                 </li>
                 <li class="pure-menu-item {{ account_menu_selected ? "pure-menu-selected" : "" }}">
-                    <a href="/manage/account/" class="pure-menu-link"><i class="fa fa-user"></i> Account</a>
+                    <a href="{{ base_url }}/manage/account/" class="pure-menu-link"><i class="fa fa-user"></i> Account</a>
                 </li>
 
                 <li class="pure-menu-item">
-                    <a href="/manage/logout/" class="pure-menu-link"><i class="fa fa-sign-out"></i> Log Out</a>
+                    <a href="{{ base_url }}/manage/logout/" class="pure-menu-link"><i class="fa fa-sign-out"></i> Log Out</a>
                 </li>
             </ul>
         </div>
