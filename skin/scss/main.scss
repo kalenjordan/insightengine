@@ -106,6 +106,9 @@
 
         .tag-title {
             font-weight: bold;
+            overflow: hidden;
+            height: 24px;
+            font-size: 90%;
         }
 
         .tag-subject {
@@ -117,8 +120,11 @@
         .signals {
             float: right;
             font-size: 82%;
-            line-height: 19px;
-            padding-top: 6px;
+            font-size: 86%;
+            line-height: 20px;
+            padding-top: 0px;
+            padding-left: 5px;
+
             .biggest-gap, .last-sent {
                 cursor: help;
                 &.good {

@@ -5,10 +5,11 @@ class Controller_Manage_Tags extends Controller_Abstract
     public function get()
     {
         $this->_requireLogin();
-
         $session = new Model_Session();
-        $mandrill = $session->getMandrillApi();
-        $tags = $mandrill->getTags();
+
+        $tagModel = new Model_Tag();
+        $tagModel->setUserId($session->getUserId());
+        $tags = $tagModel->fetchAll();
 
         $parameters = array_merge(parent::_getTwigParameters(), array(
             'tags_menu_selected'    => true,

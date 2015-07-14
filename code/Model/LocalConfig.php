@@ -29,6 +29,10 @@ class Model_LocalConfig
         ORM::configure("mysql:host=$host;dbname=$databaseName");
         ORM::configure('username', $databaseUser);
         ORM::configure('password', $databasePassword);
+
+        ORM::configure('id_column_overrides', array(
+            'insightengine_tags' => 'tag_id',
+        ));
     }
 
     public function getBaseUrl() { return $this->get('base_url'); }

@@ -4,6 +4,7 @@ class Model_Session
 {
     protected $_key;
     protected $_mandrill;
+    protected $_user;
 
     public function setKey($key)
     {
@@ -29,15 +30,32 @@ class Model_Session
         return $_SESSION['insightengine_mandrill_api_key'];
     }
 
+    public function getUser()
+    {
+        if (isset($this->_user)) {
+            return $this->_user;
+        }
+
+        $this->_user = new Model_User();
+        $this->_user->loadByApiKey($this->getKey());
+
+        return $this->_user;
+    }
+
     public function getUsername()
     {
-        return $this->getMandrillApi()->getUsername();
+        return $this->getUser()->getUsername();
+    }
+
+    public function getUserId()
+    {
+        return $this->getUser()->getUserId();
     }
 
     // Not sure if this is always the case
     public function getEmail()
     {
-        return $this->getMandrillApi()->getUsername();
+        return $this->getUser()->getUsername();
     }
 
     public function getMandrillApi()

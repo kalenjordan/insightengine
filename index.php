@@ -25,6 +25,7 @@ try {
         "$base/manage/account"              => "Controller_Manage_Account",
         "$base/manage/logout"               => "Controller_Manage_LogOut",
         "$base/manage/check-mandrill-key"   => "Controller_Manage_CheckMandrillKey",
+        "$base/manage/process-tags"         => "Controller_Manage_ProcessTags",
     ));
 } catch (Exception $e) {
     if ($local->getHideExceptions()) {
