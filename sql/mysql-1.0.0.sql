@@ -15,6 +15,7 @@ CREATE TABLE insightengine_tags (
     tag_subject VARCHAR(255),
     biggest_gap_last_30_days INT,
     send_count INT,
+    send_count_30_days INT,
     last_sent DATETIME,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME

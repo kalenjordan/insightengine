@@ -43,6 +43,18 @@ class Controller_Manage_ProcessTags extends Controller_Abstract
             $tagRecord->save();
         }
 
+        $tags = ORM::for_table('insightengine_tags')
+            ->where_equal('user_id', $session->getUserId())
+            ->order_by_asc('updated_at')
+            ->find_many();
+
+        foreach ($tags as $tagData) {
+            $tagModel = new Model_Tag();
+            $tagModel->loadByTag($session->getUserId(), $tagData['tag']);
+            echo "<br>Processing " . $tagData['tag'] . "\r\n";
+            $tagModel->process();
+        }
+
         $this->_jsonResponse(array(
             'success'           => true,
             'tags_processed'    => count($tags),

@@ -9,11 +9,27 @@ class Controller_Manage_Tags extends Controller_Abstract
 
         $tagModel = new Model_Tag();
         $tagModel->setUserId($session->getUserId());
-        $tags = $tagModel->fetchAll();
+
+        $recentDate = new \Carbon\Carbon();
+        $recentDate->subDays(30);
+
+        $tagsRecent = ORM::for_table('insightengine_tags')
+            ->where_equal('user_id', $session->getUserId())
+            ->where_gte('last_sent', $recentDate)
+            ->order_by_asc('biggest_gap_last_30_days')
+            ->find_many();
+
+        $tagsOld = ORM::for_table('insightengine_tags')
+            ->where_equal('user_id', $session->getUserId())
+            ->where_lt('last_sent', $recentDate)
+            ->order_by_asc('biggest_gap_last_30_days')
+            ->find_many();
 
         $parameters = array_merge(parent::_getTwigParameters(), array(
             'tags_menu_selected'    => true,
-            'tags'                  => $tags,
+            'tags_recent'           => $tagsRecent,
+            'tags_old'              => $tagsOld,
+            'tag_model'             => $tagModel,
         ));
 
         echo $this->_getTwig()->render('manage/tags.html.twig', $parameters);
