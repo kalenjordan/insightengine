@@ -114,12 +114,23 @@ p.mandrill-validation-status {
             height: 17px;
         }
 
-        .send-count {
+        .signals {
             float: right;
-            font-size: 150%;
-            padding-top: 3px;
-            padding-right: 3px;
-            padding-left: 3px;
+            font-size: 82%;
+            line-height: 19px;
+            padding-top: 6px;
+            .biggest-gap, .last-sent {
+                cursor: help;
+                &.good {
+                    color: #5eb95e;
+                }
+                &.okay {
+                    color: rgb(243, 123, 29);
+                }
+                &.bad {
+                    color: #dd514c;
+                }
+            }
         }
     }
 }

@@ -83,4 +83,6 @@ $(document).ready(function() {
     }).bind('paste', function() {
         $('.mandrill-validation-status').fadeIn();
     });
+
+    $('.tooltip').tooltipster();
 });
