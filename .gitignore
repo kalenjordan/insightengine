@@ -1,5 +1,5 @@
 /.idea
-/skin/css/
+/skin/css/main.css
 /skin/.sass-cache
 /composer.lock
 /vendor
