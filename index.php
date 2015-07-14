@@ -20,10 +20,11 @@ if ($local->getHideExceptions()) {
 $base = $local->getBaseRoute();
 try {
     Toro::serve(array(
-        "$base/"                    => "Controller_Index",
-        "$base/manage"              => "Controller_Manage_Tags",
-        "$base/manage/account"      => "Controller_Manage_Account",
-        "$base/manage/logout"       => "Controller_Manage_LogOut",
+        "$base/"                            => "Controller_Index",
+        "$base/manage"                      => "Controller_Manage_Tags",
+        "$base/manage/account"              => "Controller_Manage_Account",
+        "$base/manage/logout"               => "Controller_Manage_LogOut",
+        "$base/manage/check-mandrill-key"   => "Controller_Manage_CheckMandrillKey",
     ));
 } catch (Exception $e) {
     if ($local->getHideExceptions()) {

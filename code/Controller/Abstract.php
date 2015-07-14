@@ -14,4 +14,11 @@ class Controller_Abstract
         }
         return $twig;
     }
+
+    protected function _jsonResponse($response)
+    {
+        header('Content-type: application/json');
+        echo json_encode($response);
+        return $this;
+    }
 }

@@ -1,6 +1,7 @@
 {
     "require": {
         "j4mie/idiorm": "1.5.*",
+        "mandrill/mandrill": "~1.0",
         "torophp/torophp": "dev-master",
         "twig/twig": "1.*@dev"
     },

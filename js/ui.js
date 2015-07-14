@@ -1,3 +1,117 @@
+InsightEngine_Data = typeof(InsightEngine_Data) != 'undefined' ? InsightEngine_Data : {};
+
+InsightEngine_App = {
+    baseUrl: 'NOT_INITIALIZED',
+
+    documentReady: function() {
+        this.bindToolTips();
+        this.bindForms();
+        this.bindAnimations();
+    },
+
+    domContentLoaded: function() {
+        // Nothing yet
+    },
+
+    getBaseUrl: function() {
+        return InsightEngine_Data.base_url;
+    },
+
+    bindToolTips: function() {
+        if (typeof(jQuery.fn.tooltipster) == 'function') {
+            $('.tooltip').tooltipster();
+        }
+    },
+
+    bindForms: function() {
+        var self = this;
+
+        $('.button-check-key').click(function() {
+            self.validateMandrillKey();
+        });
+    },
+
+    bindAnimations: function() {
+        var self = this;
+        $('.button-start').click(function() {
+            self.animateStep('.signup-step-1', '.signup-step-2')
+        });
+    },
+
+    animateStep: function(fromStep, toStep) {
+        $(fromStep).animate({
+            "margin-right": '+=50',
+            opacity: 0
+        }, 250, function() {
+            $(this).hide();
+            $(toStep).css('opacity', 0)
+                .show()
+                .css('margin-left', '50px')
+                .animate({
+                    "margin-left": '-=50',
+                    opacity: 1
+                }, 250);
+        });
+    },
+
+    validateMandrillKey: function() {
+        var self = this;
+        $('.status-error').hide();
+        $('.status-checking').fadeIn();
+        $('.button-check-key').addClass('pure-button-disabled').text("Checking...");
+
+        $.ajax({
+            url: this.getBaseUrl() + '/manage/check-mandrill-key',
+            method: 'GET',
+            data: {
+                'mandrill_api_key': $('.mandrill-api-key').val()
+            },
+            success: function(data) {
+                if (data.success) {
+                    self.validateMandrillKeySuccess(data);
+                } else {
+                    self.validateMandrillKeyError(data);
+                }
+            }
+        });
+    },
+
+    validateMandrillKeySuccess: function(data)
+    {
+        var self = this;
+
+        $('.status-checking').fadeOut(function() {
+            $('.status-success .mandrill-username').text(data.username);
+            $('.status-success').fadeIn();
+            setTimeout(function() {
+                self.animateStep('.signup-step-2', '.signup-step-3')
+            }, 1000);
+        });
+    },
+
+    validateMandrillKeyError: function(data)
+    {
+        var self = this;
+
+        $('.status-checking').fadeOut(function() {
+            $('.status-error .error-message').text(data.error_message);
+            $('.status-error').fadeIn();
+            $('.button-check-key').removeClass('pure-button-disabled').text("Check");
+        });
+    }
+};
+
+$(document).ready(function() {
+    InsightEngine_App.documentReady();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    InsightEngine_App.domContentLoaded();
+});
+
+/**
+ * Menu handling for purecss menu
+ */
 (function (window, document) {
 
     var layout   = document.getElementById('layout'),
@@ -33,58 +147,3 @@
     };
 
 }(this, this.document));
-
-$(document).ready(function() {
-    $('.button-start').click(function() {
-        $('.signup-step-1').animate({
-            "margin-right": '+=50',
-            opacity: 0
-        }, 250, function() {
-            $(this).hide();
-            $('.signup-step-2').css('opacity', 0)
-                .show()
-                .css('margin-left', '50px')
-                .animate({
-                    "margin-left": '-=50',
-                    opacity: 1
-                }, 250);
-        });
-    });
-
-    $('.button-next').click(function() {
-        $('.signup-step-2').animate({
-            "margin-right": '+=50',
-            opacity: 0
-        }, 250, function() {
-            $(this).hide();
-            $('.signup-step-3').css('opacity', 0)
-                .show()
-                .css('margin-left', '50px')
-                .animate({
-                    "margin-left": '-=50',
-                    opacity: 1
-                }, 250);
-            setTimeout(function() {
-                var manageUrl = $('#manage_url').val();
-                window.location = manageUrl;
-            }, 2000);
-
-        });
-    });
-
-
-    $('.mandrill-api-key').keypress(function() {
-        $('.mandrill-validation-status').fadeIn();
-        setTimeout(function() {
-            $('.mandrill-validation-status .checking').fadeOut(function() {
-                $('.mandrill-validation-status .success').fadeIn();
-            });
-        }, 1000);
-    }).bind('paste', function() {
-        $('.mandrill-validation-status').fadeIn();
-    });
-
-    if (typeof(jQuery.fn.tooltipster) == 'function') {
-        $('.tooltip').tooltipster();
-    }
-});

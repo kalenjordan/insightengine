@@ -69,15 +69,11 @@
     box-shadow: rgba(0, 0, 0, 0.74902) 0px 0px 37px 0px;
 }
 
-p.mandrill-validation-status {
-    margin-top: 0;
-    font-size: 70%;
-    .success {
-        color: #5eb95e;
-    }
-    .error {
-        color: #dd514c;
-    }
+.status-success {
+    color: #5eb95e;
+}
+.status-error {
+    color: #dd514c;
 }
 
 .border-bottom {

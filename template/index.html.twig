@@ -74,14 +74,13 @@
                         <form class="pure-form">
                             <fieldset>
                                 <input class="mandrill-api-key" type="text" placeholder="Mandrill API Key"/>
-                                <input type="hidden" id="manage_url" value="{{ base_url }}/manage/" />
-                                <a class="pure-button pure-button-primary button-next" href="javascript://">Next</a>
+                                <a class="pure-button pure-button-primary button-check-key" href="javascript://">Check</a>
                             </fieldset>
                         </form>
-                        <p class="mandrill-validation-status" style="display: none;">
-                            <span class="checking"><i class="fa fa-spinner fa-spin"></i> Checking</span>
-                            <span class="success" style="display: none;"><i class="fa fa-check"></i> Looks good!  Connected to Mandrill account for <span class="mandrill-username">username</span></span>
-                            <span class="error" style="display: none;"><i class="fa fa-frown-o"></i> Error</span>
+                        <p>
+                            <span class="status-checking" style="display: none;"><i class="fa fa-spinner fa-spin"></i> Checking</span>
+                            <span class="status-success" style="display: none;"><i class="fa fa-check"></i> Looks good!  Connected to Mandrill account for <span class="mandrill-username">username</span></span>
+                            <span class="status-error" style="display: none;"><i class="fa fa-frown-o"></i> <span class="error-message">Error</span></span>
                         </p>
                     </div>
                 </div>
@@ -199,6 +198,10 @@
     </div> <!-- #main -->
 </div> <!-- #layout -->
 
+<script>
+    InsightEngine_Data = typeof(InsightEngine_Data) != 'undefined' ? InsightEngine_Data : {};
+    InsightEngine_Data.base_url = '{{ base_url }}';
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="{{ base_url }}/js/ui.js"></script>
 </body>
