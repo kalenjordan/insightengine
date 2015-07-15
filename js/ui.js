@@ -46,6 +46,13 @@ InsightEngine_App = {
             success: function(data) {
                 if (! data.success) {
                     alert("Uh-oh, there was a problem: " + data.error_message);
+                } else {
+                    var tagElement = $('#tag-' + tagId);
+                    if (data.is_active) {
+                        tagElement.removeClass('tag-inactive');
+                    } else {
+                        tagElement.addClass('tag-inactive');
+                    }
                 }
             }
         });

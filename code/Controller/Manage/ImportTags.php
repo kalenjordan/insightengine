@@ -12,8 +12,8 @@ class Controller_Manage_ImportTags extends Controller_Abstract
 
         $tags = ORM::for_table('insightengine_tags')
             ->where_equal('user_id', $session->getUserId())
+            ->where_null('send_count_30_days')
             ->order_by_desc('send_count_30_days')
-            // ->limit(20)
             ->find_many();
 
         $parameters = array_merge(parent::_getTwigParameters(), array(

@@ -6,7 +6,7 @@
     <div class="hero border-bottom">
         <div class="hero-titles">
             <h2 class="hero-tagline">
-                Processed <span class="completed-count">0</span> of <span class="total_count">{{ tags|length }}</span> tags
+                Processed <span class="completed-count">0</span> of <span class="total_count">{{ tags|length }}</span> new tags
             </h2>
         </div>
     </div>
@@ -23,26 +23,36 @@
             <p style="text-align: center">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/gAYL5H46QnQ" frameborder="0" allowfullscreen></iframe>
             </p>
+            <p style="text-align: center;">
+                <a class="pure-button pure-button-primary pure-button-disabled" href="javascript://">See my tags!</a>
+            </p>
         </div> <!-- .content -->
     </div>
 
-    {% for tag in tags %}
-        <script>
-            var totalTagCount = {{ tags|length }}
-            document.addEventListener('DOMContentLoaded', function() {
-                InsightEngine_App.ajaxProcessMandrillTag({{ tag.tag_id }}, function() {
-                    var element = $('.completed-count');
-                    var count = parseInt(element.text());
-                    count++;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var totalTagCount = {{ tags|length }};
+            if (totalTagCount == 0) {
+                $('.hero-tagline').text("Done importing!");
+                $('.pure-button-primary').removeClass('pure-button-disabled').attr('href', '{{ base_url }}/manage/');
+            }
 
-                    console.log("Incrementing count from " + element.text() + " to " + count);
-                    element.text(count);
-                    if (count == totalTagCount) {
-                        window.location = InsightEngine_Data.base_url + '/manage/';
-                    }
-                });
-            }, false);
-        </script>
-    {% endfor %}
+            {% for tag in tags %}
+                {% if tag.send_count_30_days == null %}
+                    InsightEngine_App.ajaxProcessMandrillTag({{ tag.tag_id }}, function() {
+                        var element = $('.completed-count');
+                        var count = parseInt(element.text());
+                        count++;
 
+                        console.log("Incrementing count from " + element.text() + " to " + count);
+                        element.text(count);
+                        if (count == totalTagCount) {
+                            $('.hero-tagline').text("Done importing!");
+                            $('.pure-button-primary').removeClass('pure-button-disabled').attr('href', '{{ base_url }}/manage/');
+                        }
+                    }, false);
+                {% endif %}
+            {% endfor %}
+        });
+    </script>
 {% endblock %}
