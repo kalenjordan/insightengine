@@ -80,7 +80,8 @@ InsightEngine_App = {
                         tagElement.find('.signals .last-sent').fadeIn();
                     });
                 } else {
-                    alert("Uh-oh, there was a problem: " + data.error_message);
+                    console.log("Problem refreshing tag");
+                    console.log(data.error_message);
                 }
             }
         });
@@ -151,9 +152,12 @@ InsightEngine_App = {
         $.ajax({
             url: this.getBaseUrl() + '/manage/fetch-tags',
             method: 'GET',
+
             success: function(data) {
                 if (data.success) {
-                    window.location = self.getBaseUrl() + '/manage/';
+                    setTimeout(function() {
+                        window.location = self.getBaseUrl() + '/manage/';
+                    }, 2000);
                 } else {
                     alert("Problem loading tags");
                 }
