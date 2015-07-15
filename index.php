@@ -25,7 +25,7 @@ try {
         "$base/manage/account"              => "Controller_Manage_Account",
         "$base/manage/logout"               => "Controller_Manage_LogOut",
         "$base/manage/check-mandrill-key"   => "Controller_Manage_CheckMandrillKey",
-        "$base/manage/process-tags"         => "Controller_Manage_ProcessTags",
+        "$base/manage/fetch-tags"           => "Controller_Manage_FetchTags",
         "$base/manage/tag/(.*)/process"     => "Controller_Manage_ProcessTag",
         "$base/manage/toggle-tag/(.*)"      => "Controller_Manage_ToggleTag",
     ));

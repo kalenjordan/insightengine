@@ -22,9 +22,11 @@ class Controller_Manage_ProcessTag extends Controller_Abstract
         $session = new Model_Session();
         $tagModel = new Model_Tag();
 
-        $tagModel->loadByTag($session->getUserId(), $tag);
+        $tagModel->loadByTagId($session->getUserId(), $tag);
         $tagModel->processTag();
-        $tagModel->processSubjectLine();
+        if (! $tagModel->getSubject()) {
+            $tagModel->processSubjectLine();
+        }
 
         $this->_jsonResponse(array(
             'success'                   => true,
@@ -33,6 +35,7 @@ class Controller_Manage_ProcessTag extends Controller_Abstract
             'last_sent'                 => $tagModel->getLastSent(),
             'last_sent_friendly'        => $tagModel->formatLastSent($tagModel->getLastSent()),
             'is_active'                 => $tagModel->defaultToActive(),
+            'subject'                   => $tagModel->getSubject(),
         ));
     }
 }

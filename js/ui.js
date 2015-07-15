@@ -49,7 +49,37 @@ InsightEngine_App = {
                 }
             }
         });
+    },
 
+    refreshMandrillTag: function(tagId) {
+        var tagElement = $('#tag-' + tagId);
+        tagElement.find('.signals .last-sent').hide();
+        tagElement.find('.signals .no-data').hide();
+        tagElement.find('.signals .loading').show();
+        tagElement.find('.signals .not-enough-data').hide();
+
+        $.ajax({
+            url: this.getBaseUrl() + '/manage/tag/' + tagId + '/process',
+            method: 'GET',
+            success: function(data) {
+                if (data.success) {
+                    tagElement.find('.signals .no-data').hide();
+                    tagElement.find('.signals .loading').fadeOut(function() {
+                        if (data.is_active) {
+                            tagElement.removeClass('tag-inactive');
+                            tagElement.find('.mandrill-tag-toggle').attr("checked", "checked");
+                        }
+                        if (data.subject) {
+                            tagElement.find('.tag-subject').text(data.subject);
+                        }
+                        tagElement.find('.signals .last-sent-amount').text(data.last_sent_friendly);
+                        tagElement.find('.signals .last-sent').fadeIn();
+                    });
+                } else {
+                    alert("Uh-oh, there was a problem: " + data.error_message);
+                }
+            }
+        });
     },
 
     bindAnimations: function() {
@@ -106,7 +136,24 @@ InsightEngine_App = {
             $('.status-success').fadeIn();
             setTimeout(function() {
                 self.animateStep('.signup-step-2', '.signup-step-3')
+                self.fetchTags();
             }, 1000);
+        });
+    },
+
+    fetchTags: function() {
+        var self = this;
+
+        $.ajax({
+            url: this.getBaseUrl() + '/manage/fetch-tags',
+            method: 'GET',
+            success: function(data) {
+                if (data.success) {
+                    window.location = self.getBaseUrl() + '/manage/';
+                } else {
+                    alert("Problem loading tags");
+                }
+            }
         });
     },
 

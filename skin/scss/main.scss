@@ -89,7 +89,9 @@
 }
 
 .tag {
+
     .tag-inner {
+        position: relative;
         background-color: rgb(250, 250, 250);
         border: solid 1px #eee;
         padding: 1em;
@@ -143,6 +145,20 @@
             .not-enough-data {
                 cursor: help;
                 color: rgb(206, 206, 206);
+            }
+        }
+
+        .refresh {
+            display: none;
+            position: absolute;
+            bottom: 1px;
+            right: 5px;
+            font-size: 81%;
+        }
+
+        &:hover {
+            .refresh {
+                display: block;
             }
         }
     }

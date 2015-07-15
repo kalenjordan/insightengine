@@ -16,40 +16,50 @@
         <p>
             Below is a list of all of your tags in Mandrill, sorted by most active.
             If tags are detected to not be active currently, they will be toggled off,
-            but you can override that manually.  This data is refreshed daily, but you
-            can also <a href="#">manually refresh it</a>.
+            but you can override that manually.
         </p>
         <div class="pure-g">
             {% for tag in tags %}
-                <div class="tag tag-enabled pure-u-1 pure-u-md-1-2 {{ tag.is_active ? "tag-active" : "tag-inactive"}}">
+                <div id="tag-{{ tag.tag_id }}" class="tag pure-u-1 pure-u-md-1-2 {{ tag.is_active ? "tag-active" : "tag-inactive"}}">
                     <div class="tag-inner ">
                         <div class="switch">
                             <input id="{{ tag.tag_id }}" class="cmn-toggle cmn-toggle-round mandrill-tag-toggle" type="checkbox" {{ tag.is_active ? "checked='checked'" : "" }}>
                             <label for="{{ tag.tag_id }}"></label>
                         </div>
                         <div class="signals">
-                            {% if tag.send_count_30_days > 10 %}
-                                {% if tag.biggest_gap_last_30_days and tag.last_sent %}
-                                    <div class="last-sent tooltip {{ tag_model.lastSentStatus(tag) }}" title="Sent {{ tag.send_count_30_days }} emails in last 30 days.  Biggest gap in last 30 days was {{ tag_model.formatBiggestGap(tag.biggest_gap_last_30_days) }}.  Last email was sent {{ tag_model.formatLastSent(tag.last_sent) }} ago">
-                                        <i class="fa fa-signal"> {{ tag_model.formatLastSent(tag.last_sent) }}</i>
-                                    </div>
-                                {% endif %}
-                            {% else %}
-                                <div class="tooltip not-enough-data" title="Not enough data yet.  {{ tag.send_count_30_days }} emails sent in last 30 days">
-                                    <i class="fa fa-clock-o tooltip" ></i>
-                                </div>
-                            {% endif %}
+                            <div class="tooltip no-data" title="No data pulled yet" style="display: {{ tag.last_sent == null ? "block" : "none" }};">
+                                <i class="fa fa-ellipsis-h" ></i>
+                            </div>
+                            <div class="last-sent tooltip {{ tag_model.lastSentStatus(tag) }}" style="display: {{ tag.send_count_30_days > 10 ? "block" : "none" }};" title="Sent {{ tag.send_count_30_days }} emails in last 30 days.  Biggest gap in last 30 days was {{ tag_model.formatBiggestGap(tag.biggest_gap_last_30_days) }}.  Last email was sent {{ tag_model.formatLastSent(tag.last_sent) }} ago">
+                                <span class="last-sent-amount">{{ tag_model.formatLastSent(tag.last_sent) }}</span>
+                            </div>
+                            <div class="tooltip not-enough-data" style="display: {{ tag.send_count_30_days == null or tag.send_count_30_days > 10 ? "none" : "block" }};" title="Not enough data yet.  {{ tag.send_count_30_days }} emails sent in last 30 days">
+                                <i class="fa fa-clock-o tooltip" ></i>
+                            </div>
+                            <div class="loading" style="display: none;">
+                                <i class="fa fa-spinner fa-pulse"></i>
+                            </div>
+                        </div>
+                        <div class="refresh">
+                            <a href="javascript:InsightEngine_App.refreshMandrillTag('{{ tag.tag_id }}');"><i class="fa fa-refresh"></i></a>
                         </div>
                         <div class="description tooltip"  title="{{ tag.tag }}<br>{{ tag.tag_subject }}">
                             <div class="tag-title">{{ tag.tag }}</div>
-                            <div class="tag-subject">{{ tag.tag_subject ? tag.tag_subject : "Subject not found yet" }}</div>
+                            <div class="tag-subject">{{ tag.tag_subject ? tag.tag_subject : "Not loaded from Mandrill yet" }}</div>
 
                         </div>
                     </div>
                 </div>
+                {% if tag.send_count_30_days == null %}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            InsightEngine_App.refreshMandrillTag('{{ tag.tag_id }}');
+                        }, false);
+                    </script>
+                {% endif %}
             {% endfor %}
-        </div>
+        </div> <!-- .pure-g -->
 
-        </div>
+        </div> <!-- .content -->
     </div>
 {% endblock %}

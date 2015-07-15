@@ -43,6 +43,21 @@ class Model_Tag
         return $this;
     }
 
+    public function loadByTagId($userId, $tagId)
+    {
+        $tag = ORM::for_table('insightengine_tags')
+            ->where_equal('user_id', $userId)
+            ->where_equal('tag_id', $tagId)
+            ->find_one();
+
+        if (! $tag) {
+            throw new Exception("Wasn't able to find tag: $tag");
+        }
+
+        $this->_tagModel = $tag;
+        return $this;
+    }
+
     public function getTag()
     {
         if (! isset($this->_tagModel['tag'])) {
@@ -72,11 +87,11 @@ class Model_Tag
 
     public function getSubject()
     {
-        if (! isset($this->_tagModel['subject'])) {
-            throw new Exception("Couldn't find subject in tag data");
+        if (! isset($this->_tagModel['tag_subject'])) {
+            throw new Exception("Couldn't find tag_subject in tag data");
         }
 
-        return $this->_tagModel['subject'];
+        return $this->_tagModel['tag_subject'];
     }
 
     public function getSendCount30Days()
@@ -104,13 +119,16 @@ class Model_Tag
 
         $lastSent = $this->_getLastSent($timeSeries);
         $biggestGap = $this->_getBiggestGap($timeSeries);
-        $defaultToActive = $this->defaultToActive($this->_tagModel);
 
         $this->_tagModel->set('last_sent', $lastSent)
             ->set_expr('updated_at', 'NOW()')
             ->set('biggest_gap_last_30_days', $biggestGap)
-            ->set('send_count_30_days', $sentCount30Days)
-            ->set('is_active', $defaultToActive)
+            ->set('send_count_30_days', $sentCount30Days);
+
+        // This has to happen after the sets above b/c it depends on them (ugh).
+        $defaultToActive = $this->defaultToActive($this->_tagModel);
+
+        $this->_tagModel->set('is_active', $defaultToActive)
             ->save();
     }
 
@@ -127,9 +145,9 @@ class Model_Tag
 
         try {
             $lastMessage = $mandrill->fetchLastMessage($this->getTag());
-            $subject = $lastMessage['subject'];
+            $subject = (isset($lastMessage['subject']) ? $lastMessage['subject'] : "Not found");
         } catch (Exception $e) {
-            $subject = "";
+            $subject = null;
         }
 
         $this->_tagModel->set('tag_subject', $subject)
