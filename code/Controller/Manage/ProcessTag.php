@@ -22,6 +22,12 @@ class Controller_Manage_ProcessTag extends Controller_Abstract
         $session = new Model_Session();
         $tagModel = new Model_Tag();
 
+        $user = new Model_User();
+        $user->loadByApiKey($session->getKey());
+        if (! $user->isActive()) {
+            throw new Exception("Not logged in yet");
+        }
+
         $tagModel->loadByTagId($session->getUserId(), $tag);
         $tagModel->processTag();
         if (! $tagModel->getSubject()) {

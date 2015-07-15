@@ -30,7 +30,7 @@ class Controller_Manage_CheckMandrillKey extends Controller_Abstract
 
         if (! $userRecord) {
             ORM::for_table('insightengine_users')->create(array(
-                'is_active'         => true,
+                'is_active'         => false,
                 'mandrill_api_key'  => $apiKey,
                 'username'          => $username,
             ))->save();

@@ -17,10 +17,12 @@ class Controller_Abstract
     {
         $local = new Model_LocalConfig();
         $session = new Model_Session();
+        $user = $session->getUser();
 
         return array(
             'session'   => $session,
-            'base_url'  => $local->getBaseUrl()
+            'base_url'  => $local->getBaseUrl(),
+            'user'      => $user,
         );
     }
 

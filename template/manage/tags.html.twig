@@ -13,6 +13,16 @@
 
     <div class="marketing manage-tags marketing-last">
         <div class="content">
+
+        {% if user.isActive() == false %}
+            <aside>
+                <p>
+                    We're in a beta stage!  Give us a day or so to review your account and approve it in order to
+                    proceed with the import.
+                </p>
+            </aside>
+        {% endif %}
+
         <p>
             Below is a list of all of your tags in Mandrill, sorted by most active.
             If tags are detected to not be active currently, they will be toggled off,
@@ -48,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                {% if tag.send_count_30_days == null %}
+                {% if tag.send_count_30_days == null and user.isActive() %}
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
                             InsightEngine_App.refreshMandrillTag('{{ tag.tag_id }}');

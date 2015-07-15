@@ -13,6 +13,15 @@
 
     <div class="marketing manage-tags marketing-last">
         <div class="content">
+            {% if user.isActive() == false %}
+                <aside>
+                    <p>
+                        We're in a beta stage!  Give us a day or so to review your account and approve it in order to
+                        proceed with the import.
+                    </p>
+                </aside>
+            {% endif %}
+
             <p>
                 This shouldn't take more than a minute or two.  We've deployed thousands
                 of robots to slurp up your Mandrill tag data.  They're very good at what they do.

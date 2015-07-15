@@ -38,6 +38,16 @@ class Model_User
         return $userData['username'];
     }
 
+    public function isActive()
+    {
+        $userData = $this->getUserData();
+        if (! isset($userData['is_active'])) {
+            throw new Exception("Couldn't find is_active in user record");
+        }
+
+        return $userData['is_active'];
+    }
+
     public function getUserId()
     {
         $userData = $this->getUserData();
