@@ -79,7 +79,16 @@ class Model_Tag
         return $this->_tagModel['subject'];
     }
 
-    public function process()
+    public function getSendCount30Days()
+    {
+        if (! isset($this->_tagModel['send_count_30_days'])) {
+            throw new Exception("Couldn't find send_count_30_days in tag data");
+        }
+
+        return $this->_tagModel['send_count_30_days'];
+    }
+
+    public function processTag()
     {
         if (! isset($this->_tagModel)) {
             throw new Exception("Tag data hasn't been loaded yet");
@@ -93,18 +102,37 @@ class Model_Tag
         $timeSeries = $mandrill->fetchTagTimeSeries($this->getTag());
         $sentCount30Days = $mandrill->getSentInLast30Days($this->getTag());
 
-        $lastMessage = $mandrill->fetchLastMessage($this->getTag());
-        $subject = $lastMessage['subject'];
-        //$subject = '';
-
         $lastSent = $this->_getLastSent($timeSeries);
         $biggestGap = $this->_getBiggestGap($timeSeries);
+        $defaultToActive = $this->defaultToActive($this->_tagModel);
 
         $this->_tagModel->set('last_sent', $lastSent)
             ->set_expr('updated_at', 'NOW()')
-            ->set('tag_subject', $subject)
             ->set('biggest_gap_last_30_days', $biggestGap)
             ->set('send_count_30_days', $sentCount30Days)
+            ->set('is_active', $defaultToActive)
+            ->save();
+    }
+
+    public function processSubjectLine()
+    {
+        if (! isset($this->_tagModel)) {
+            throw new Exception("Tag data hasn't been loaded yet");
+        }
+
+        $session = new Model_Session();
+
+        $mandrill = new Model_Mandrill();
+        $mandrill->setKey($session->getKey());
+
+        try {
+            $lastMessage = $mandrill->fetchLastMessage($this->getTag());
+            $subject = $lastMessage['subject'];
+        } catch (Exception $e) {
+            $subject = "";
+        }
+
+        $this->_tagModel->set('tag_subject', $subject)
             ->save();
     }
 
@@ -166,5 +194,18 @@ class Model_Tag
         $lastSentHoursAgo = $lastSent->diffInHours();
 
         return ($lastSentHoursAgo > $biggestGap) ? "bad" : "good";
+    }
+
+    /**
+     * @param $tag ORM
+     * @return bool
+     */
+    public function defaultToActive()
+    {
+        if ($this->getSendCount30Days() < 10) {
+            return false;
+        }
+
+        return true;
     }
 }

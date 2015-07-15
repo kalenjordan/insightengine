@@ -19,7 +19,10 @@ InsightEngine_App = {
 
     bindToolTips: function() {
         if (typeof(jQuery.fn.tooltipster) == 'function') {
-            $('.tooltip').tooltipster();
+            $('.tooltip').tooltipster({
+                maxWidth: 400,
+                contentAsHTML: true
+            });
         }
     },
 
@@ -29,6 +32,24 @@ InsightEngine_App = {
         $('.button-check-key').click(function() {
             self.validateMandrillKey();
         });
+
+        $('.mandrill-tag-toggle').click(function() {
+            self.toggleMandrillTag($(this).attr('id'));
+        })
+    },
+
+    toggleMandrillTag: function(tagId) {
+        console.log(tagId);
+        $.ajax({
+            url: this.getBaseUrl() + '/manage/toggle-tag/' + tagId,
+            method: 'GET',
+            success: function(data) {
+                if (! data.success) {
+                    alert("Uh-oh, there was a problem: " + data.error_message);
+                }
+            }
+        });
+
     },
 
     bindAnimations: function() {

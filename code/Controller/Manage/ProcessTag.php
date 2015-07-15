@@ -23,7 +23,8 @@ class Controller_Manage_ProcessTag extends Controller_Abstract
         $tagModel = new Model_Tag();
 
         $tagModel->loadByTag($session->getUserId(), $tag);
-        $tagModel->process();
+        $tagModel->processTag();
+        $tagModel->processSubjectLine();
 
         $this->_jsonResponse(array(
             'success'                   => true,
@@ -31,6 +32,7 @@ class Controller_Manage_ProcessTag extends Controller_Abstract
             'biggest_gap_last_30_days'  => $tagModel->getBiggestGap(),
             'last_sent'                 => $tagModel->getLastSent(),
             'last_sent_friendly'        => $tagModel->formatLastSent($tagModel->getLastSent()),
+            'is_active'                 => $tagModel->defaultToActive(),
         ));
     }
 }

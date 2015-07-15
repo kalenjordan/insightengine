@@ -12,36 +12,37 @@
     </div>
 
     <div class="marketing manage-tags marketing-last">
+        <div class="content">
         <p>
             Below is a list of all of your tags in Mandrill, sorted by most active.
             If tags are detected to not be active currently, they will be toggled off,
             but you can override that manually.  This data is refreshed daily, but you
             can also <a href="#">manually refresh it</a>.
         </p>
-        <h2>Recent</h2>
         <div class="pure-g">
-            {% for tag in tags_recent %}
-                <div class="tag tag-enabled pure-u-1 pure-u-md-1-2">
+            {% for tag in tags %}
+                <div class="tag tag-enabled pure-u-1 pure-u-md-1-2 {{ tag.is_active ? "tag-active" : "tag-inactive"}}">
                     <div class="tag-inner ">
                         <div class="switch">
-                            <input id="cmn-toggle-{{ tag.tag_id }}" class="cmn-toggle cmn-toggle-round" type="checkbox" checked="checked">
-                            <label for="cmn-toggle-{{ tag.tag_id }}"></label>
+                            <input id="{{ tag.tag_id }}" class="cmn-toggle cmn-toggle-round mandrill-tag-toggle" type="checkbox" {{ tag.is_active ? "checked='checked'" : "" }}>
+                            <label for="{{ tag.tag_id }}"></label>
                         </div>
                         <div class="signals">
                             {% if tag.send_count_30_days > 10 %}
                                 {% if tag.biggest_gap_last_30_days and tag.last_sent %}
-                                    <div class="biggest-gap good "><i class="fa fa-signal"></i>
-                                        {{ tag_model.formatBiggestGap(tag.biggest_gap_last_30_days) }}
+                                    <div class="last-sent tooltip {{ tag_model.lastSentStatus(tag) }}" title="Sent {{ tag.send_count_30_days }} emails in last 30 days.  Biggest gap in last 30 days was {{ tag_model.formatBiggestGap(tag.biggest_gap_last_30_days) }}.  Last email was sent {{ tag_model.formatLastSent(tag.last_sent) }} ago">
+                                        <i class="fa fa-signal"> {{ tag_model.formatLastSent(tag.last_sent) }}</i>
                                     </div>
-                                    <div class="last-sent {{ tag_model.lastSentStatus(tag) }}"><i class="fa fa-calendar"> {{ tag_model.formatLastSent(tag.last_sent) }}</i></div>
                                 {% endif %}
                             {% else %}
-                                Not enough data
+                                <div class="tooltip not-enough-data" title="Not enough data yet.  {{ tag.send_count_30_days }} emails sent in last 30 days">
+                                    <i class="fa fa-clock-o tooltip" ></i>
+                                </div>
                             {% endif %}
                         </div>
-                        <div class="description">
-                            <div class="tag-title tooltip" title="{{ tag.tag }}">{{ tag.tag }}</div>
-                            <div class="tag-subject">{{ tag.tag_subject ? tag.tag_subject : "No subject found" }}</div>
+                        <div class="description tooltip"  title="{{ tag.tag }}<br>{{ tag.tag_subject }}">
+                            <div class="tag-title">{{ tag.tag }}</div>
+                            <div class="tag-subject">{{ tag.tag_subject ? tag.tag_subject : "Subject not found yet" }}</div>
 
                         </div>
                     </div>
@@ -49,30 +50,6 @@
             {% endfor %}
         </div>
 
-        <h2>Not sent in 30 days</h2>
-        <div class="pure-g">
-            {% for tag in tags_old %}
-                <div class="tag tag-enabled pure-u-1 pure-u-md-1-2">
-                    <div class="tag-inner ">
-                        <div class="switch">
-                            <input id="cmn-toggle-{{ tag.tag_id }}" class="cmn-toggle cmn-toggle-round" type="checkbox" >
-                            <label for="cmn-toggle-{{ tag.tag_id }}"></label>
-                        </div>
-                        <div class="signals">
-                            {% if tag.biggest_gap_last_30_days and tag.last_sent %}
-                                <div class="biggest-gap good "><i class="fa fa-signal"></i>
-                                    {{ tag_model.formatBiggestGap(tag.biggest_gap_last_30_days) }}
-                                </div>
-                                <div class="last-sent {{ tag_model.lastSentStatus(tag) }}"><i class="fa fa-calendar"> {{ tag_model.formatLastSent(tag.last_sent) }}</i></div>
-                            {% endif %}
-                        </div>
-                        <div class="description">
-                            <div class="tag-title tooltip" title="{{ tag.tag }}">{{ tag.tag }}</div>
-                            <div class="tag-subject">{{ tag.tag_subject }}</div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
         </div>
     </div>
 {% endblock %}

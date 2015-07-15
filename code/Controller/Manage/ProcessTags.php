@@ -48,11 +48,26 @@ class Controller_Manage_ProcessTags extends Controller_Abstract
             ->order_by_asc('updated_at')
             ->find_many();
 
+
         foreach ($tags as $tagData) {
             $tagModel = new Model_Tag();
             $tagModel->loadByTag($session->getUserId(), $tagData['tag']);
+
             echo "<br>Processing " . $tagData['tag'] . "\r\n";
-            $tagModel->process();
+            $tagModel->processTag();
+        }
+
+        $tags = ORM::for_table('insightengine_tags')
+            ->where_equal('user_id', $session->getUserId())
+            ->where_raw("tag_subject IS NULL OR tag_subject == ''")
+            ->order_by_desc('send_count_30_days')
+            ->find_many();
+
+        foreach ($tags as $tagData) {
+            $tagModel = new Model_Tag();
+            $tagModel->loadByTag($session->getUserId(), $tagData['tag']);
+            echo "<br>Processing subject line " . $tagData['tag'] . "\r\n";
+            $tagModel->processSubjectLine();
         }
 
         $this->_jsonResponse(array(
