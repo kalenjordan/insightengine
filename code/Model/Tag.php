@@ -7,6 +7,11 @@ class Model_Tag
     /** @var ORM */
     protected $_tagModel;
 
+    public function getTagRecord()
+    {
+        return $this->_tagModel;
+    }
+
     public function setUserId($userId)
     {
         $this->_userId = $userId;
@@ -101,6 +106,18 @@ class Model_Tag
         }
 
         return $this->_tagModel['send_count_30_days'];
+    }
+
+    /**
+     * @param $tagRecord ORM
+     * @return string
+     */
+    public function getSummary($tagRecord)
+    {
+        $sendCount30Days = $tagRecord->get('send_count_30_days');
+        $biggestGap = $this->formatBiggestGap($tagRecord->get('biggest_gap_last_30_days'));
+        $lastSent = $this->formatLastSent($tagRecord->get('last_sent'));
+        return "Sent $sendCount30Days emails in last 30 days.  Biggest gap in last 30 days was $biggestGap.  Last email was sent $lastSent ago";
     }
 
     public function processTag()

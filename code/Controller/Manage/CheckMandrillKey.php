@@ -24,6 +24,18 @@ class Controller_Manage_CheckMandrillKey extends Controller_Abstract
         $session = new Model_Session();
         $session->setKey($apiKey);
 
+        $userRecord = ORM::for_table('insightengine_users')
+            ->where_equal('mandrill_api_key', $apiKey)
+            ->find_one();
+
+        if (! $userRecord) {
+            ORM::for_table('insightengine_users')->create(array(
+                'is_active'         => true,
+                'mandrill_api_key'  => $apiKey,
+                'username'          => $username,
+            ))->save();
+        }
+
         $this->_jsonResponse(array(
             'success'       => true,
             'username'      => $username,

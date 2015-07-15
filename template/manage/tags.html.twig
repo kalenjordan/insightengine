@@ -30,7 +30,7 @@
                             <div class="tooltip no-data" title="No data pulled yet" style="display: {{ tag.last_sent == null ? "block" : "none" }};">
                                 <i class="fa fa-ellipsis-h" ></i>
                             </div>
-                            <div class="last-sent tooltip {{ tag_model.lastSentStatus(tag) }}" style="display: {{ tag.send_count_30_days > 10 ? "block" : "none" }};" title="Sent {{ tag.send_count_30_days }} emails in last 30 days.  Biggest gap in last 30 days was {{ tag_model.formatBiggestGap(tag.biggest_gap_last_30_days) }}.  Last email was sent {{ tag_model.formatLastSent(tag.last_sent) }} ago">
+                            <div class="last-sent tooltip {{ tag_model.lastSentStatus(tag) }}" style="display: {{ tag.send_count_30_days > 10 ? "block" : "none" }};" title="{{ tag_model.getSummary(tag) }}">
                                 <span class="last-sent-amount">{{ tag_model.formatLastSent(tag.last_sent) }}</span>
                             </div>
                             <div class="tooltip not-enough-data" style="display: {{ tag.send_count_30_days == null or tag.send_count_30_days > 10 ? "none" : "block" }};" title="Not enough data yet.  {{ tag.send_count_30_days }} emails sent in last 30 days">

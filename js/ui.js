@@ -52,6 +52,7 @@ InsightEngine_App = {
     },
 
     refreshMandrillTag: function(tagId) {
+        var self = this;
         var tagElement = $('#tag-' + tagId);
         tagElement.find('.signals .last-sent').hide();
         tagElement.find('.signals .no-data').hide();
@@ -72,6 +73,8 @@ InsightEngine_App = {
                         if (data.subject) {
                             tagElement.find('.tag-subject').text(data.subject);
                         }
+
+                        tagElement.find('.signals .last-sent').tooltipster('content', data.summary);
                         tagElement.find('.signals .last-sent-amount').text(data.last_sent_friendly);
                         tagElement.find('.signals .last-sent').fadeIn();
                     });

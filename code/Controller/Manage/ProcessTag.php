@@ -36,6 +36,7 @@ class Controller_Manage_ProcessTag extends Controller_Abstract
             'last_sent_friendly'        => $tagModel->formatLastSent($tagModel->getLastSent()),
             'is_active'                 => $tagModel->defaultToActive(),
             'subject'                   => $tagModel->getSubject(),
+            'summary'                   => $tagModel->getSummary($tagModel->getTagRecord()),
         ));
     }
 }
