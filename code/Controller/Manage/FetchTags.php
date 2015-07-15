@@ -1,6 +1,6 @@
 <?php
 
-class Controller_Manage_ProcessTags extends Controller_Abstract
+class Controller_Manage_FetchTags extends Controller_Abstract
 {
     public function get()
     {
