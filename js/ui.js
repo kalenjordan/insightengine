@@ -74,6 +74,7 @@ InsightEngine_App = {
                             tagElement.find('.tag-subject').text(data.subject);
                         }
 
+                        tagElement.find('.signals .last-sent').addClass(data.last_sent_status);
                         tagElement.find('.signals .last-sent').tooltipster('content', data.summary);
                         tagElement.find('.signals .last-sent-amount').text(data.last_sent_friendly);
                         tagElement.find('.signals .last-sent').fadeIn();

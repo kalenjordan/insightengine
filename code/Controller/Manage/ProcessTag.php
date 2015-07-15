@@ -37,6 +37,7 @@ class Controller_Manage_ProcessTag extends Controller_Abstract
             'is_active'                 => $tagModel->defaultToActive(),
             'subject'                   => $tagModel->getSubject(),
             'summary'                   => $tagModel->getSummary($tagModel->getTagRecord()),
+            'last_sent_status'          => $tagModel->lastSentStatus($tagModel->getTagRecord()),
         ));
     }
 }
