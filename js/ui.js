@@ -59,26 +59,33 @@ InsightEngine_App = {
         tagElement.find('.signals .loading').show();
         tagElement.find('.signals .not-enough-data').hide();
 
+        this.ajaxProcessMandrillTag(tagId, function(data) {
+            tagElement.find('.signals .no-data').hide();
+            if (data.is_active) {
+                tagElement.removeClass('tag-inactive');
+                tagElement.find('.mandrill-tag-toggle').attr("checked", "checked");
+            }
+            if (data.subject) {
+                tagElement.find('.tag-subject').text(data.subject);
+            }
+
+            tagElement.find('.signals .last-sent').addClass(data.last_sent_status);
+            tagElement.find('.signals .last-sent').tooltipster('content', data.summary);
+            tagElement.find('.signals .last-sent-amount').text(data.last_sent_friendly);
+
+            tagElement.find('.signals .loading').fadeOut(function() {
+                tagElement.find('.signals .last-sent').fadeIn();
+            });
+        });
+    },
+
+    ajaxProcessMandrillTag: function(tagId, success) {
         $.ajax({
             url: this.getBaseUrl() + '/manage/tag/' + tagId + '/process',
             method: 'GET',
             success: function(data) {
                 if (data.success) {
-                    tagElement.find('.signals .no-data').hide();
-                    tagElement.find('.signals .loading').fadeOut(function() {
-                        if (data.is_active) {
-                            tagElement.removeClass('tag-inactive');
-                            tagElement.find('.mandrill-tag-toggle').attr("checked", "checked");
-                        }
-                        if (data.subject) {
-                            tagElement.find('.tag-subject').text(data.subject);
-                        }
-
-                        tagElement.find('.signals .last-sent').addClass(data.last_sent_status);
-                        tagElement.find('.signals .last-sent').tooltipster('content', data.summary);
-                        tagElement.find('.signals .last-sent-amount').text(data.last_sent_friendly);
-                        tagElement.find('.signals .last-sent').fadeIn();
-                    });
+                    success(data);
                 } else {
                     console.log("Problem refreshing tag");
                     console.log(data.error_message);
@@ -139,10 +146,7 @@ InsightEngine_App = {
         $('.status-checking').fadeOut(function() {
             $('.status-success .mandrill-username').text(data.username);
             $('.status-success').fadeIn();
-            setTimeout(function() {
-                self.animateStep('.signup-step-2', '.signup-step-3')
-                self.fetchTags();
-            }, 1000);
+            self.fetchTags();
         });
     },
 
@@ -155,9 +159,7 @@ InsightEngine_App = {
 
             success: function(data) {
                 if (data.success) {
-                    setTimeout(function() {
-                        window.location = self.getBaseUrl() + '/manage/';
-                    }, 2000);
+                    window.location = self.getBaseUrl() + '/manage/import-tags';
                 } else {
                     alert("Problem loading tags");
                 }

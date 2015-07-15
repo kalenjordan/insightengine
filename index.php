@@ -28,6 +28,7 @@ try {
         "$base/manage/fetch-tags"           => "Controller_Manage_FetchTags",
         "$base/manage/tag/(.*)/process"     => "Controller_Manage_ProcessTag",
         "$base/manage/toggle-tag/(.*)"      => "Controller_Manage_ToggleTag",
+        "$base/manage/import-tags"          => "Controller_Manage_ImportTags",
     ));
 } catch (Exception $e) {
     if ($local->getHideExceptions()) {

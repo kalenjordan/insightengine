@@ -55,7 +55,8 @@ class Model_Mandrill
 
     public function fetchLastMessage($tag)
     {
-        $messages = $this->_getMandrillApi()->messages->search('*', null, null, array($tag), null, null, 1);
+        $dateFrom = \Carbon\Carbon::now()->subDays(90)->toDateString();
+        $messages = $this->_getMandrillApi()->messages->search('*', $dateFrom, null, array($tag), null, null, 1);
         if (! isset($messages[0])) {
             return null;
         }

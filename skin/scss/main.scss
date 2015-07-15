@@ -148,17 +148,10 @@
             }
         }
 
-        .refresh {
-            display: none;
-            position: absolute;
-            bottom: 1px;
-            right: 5px;
-            font-size: 81%;
-        }
-
         &:hover {
-            .refresh {
-                display: block;
+            .refresh-tag {
+                display: inline !important;
+                color: rgb(119, 119, 119);
             }
         }
     }
@@ -172,8 +165,12 @@
     }
 }
 
-.marketing.manage-tags {
+.marketing.manage-tags .content {
     max-width: 768px;
+    @media (min-width: 1280px) {
+        max-width: 1028px;
+    }
+
     margin-left: auto;
     margin-right: auto;
 }

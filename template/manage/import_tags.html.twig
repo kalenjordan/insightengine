@@ -1,0 +1,48 @@
+{% extends 'manage/_base.html.twig' %}
+
+{% block title %}Import Tags | InsightEngine{% endblock %}
+
+{% block content %}
+    <div class="hero border-bottom">
+        <div class="hero-titles">
+            <h2 class="hero-tagline">
+                Processed <span class="completed-count">0</span> of <span class="total_count">{{ tags|length }}</span> tags
+            </h2>
+        </div>
+    </div>
+
+    <div class="marketing manage-tags marketing-last">
+        <div class="content">
+            <p>
+                This shouldn't take more than a minute or two.  We've deployed thousands
+                of robots to slurp up your Mandrill tag data.  They're very good at what they do.
+            </p>
+            <p>
+                And here's a little entertainment whilst you wait.
+            </p>
+            <p style="text-align: center">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/gAYL5H46QnQ" frameborder="0" allowfullscreen></iframe>
+            </p>
+        </div> <!-- .content -->
+    </div>
+
+    {% for tag in tags %}
+        <script>
+            var totalTagCount = {{ tags|length }}
+            document.addEventListener('DOMContentLoaded', function() {
+                InsightEngine_App.ajaxProcessMandrillTag({{ tag.tag_id }}, function() {
+                    var element = $('.completed-count');
+                    var count = parseInt(element.text());
+                    count++;
+
+                    console.log("Incrementing count from " + element.text() + " to " + count);
+                    element.text(count);
+                    if (count == totalTagCount) {
+                        window.location = InsightEngine_Data.base_url + '/manage/';
+                    }
+                });
+            }, false);
+        </script>
+    {% endfor %}
+
+{% endblock %}
