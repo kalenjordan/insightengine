@@ -29,6 +29,7 @@ class Controller_Manage_CheckMandrillKey extends Controller_Abstract
             ->find_one();
 
         if (! $userRecord) {
+            mail('kalen@magemail.co', 'new insightengine user: ' . $username, 'new insightengine user: ' . $username, "From: cron@magemail.co");
             ORM::for_table('insightengine_users')->create(array(
                 'is_active'         => false,
                 'mandrill_api_key'  => $apiKey,

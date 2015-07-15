@@ -38,4 +38,5 @@ class Model_LocalConfig
     public function getBaseUrl() { return $this->get('base_url'); }
     public function getBaseRoute() { return $this->get('base_route'); }
     public function getHideExceptions() { return $this->get('hide_exceptions'); }
+    public function useHttpsOnly() { return $this->get('https_only'); }
 }
