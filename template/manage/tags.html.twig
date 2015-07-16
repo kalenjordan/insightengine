@@ -41,10 +41,10 @@
                                 <i class="fa fa-ellipsis-h" ></i>
                             </div>
                             <a href="javascript:InsightEngine_App.refreshMandrillTag('{{ tag.tag_id }}');" style="display: none;" class="refresh-tag"><i class="fa fa-refresh"></i></a>
-                            <div class="last-sent tooltip {{ tag_model.lastSentStatus(tag) }}" style="display: {{ tag.send_count_30_days > 10 ? "block" : "none" }};" title="{{ tag_model.getSummary(tag) }}">
+                            <div class="last-sent tooltip {{ tag_model.lastSentStatus(tag) }}" style="display: {{ tag.send_count_30_days >= 10 ? "block" : "none" }};" title="{{ tag_model.getSummary(tag) }}">
                                 <span class="last-sent-amount">{{ tag_model.formatLastSent(tag.last_sent) }}</span>
                             </div>
-                            <div class="tooltip not-enough-data" style="display: {{ tag.send_count_30_days == null or tag.send_count_30_days > 10 ? "none" : "block" }};" title="Not enough data yet.  {{ tag.send_count_30_days }} emails sent in last 30 days">
+                            <div class="tooltip not-enough-data" style="display: {{ tag.send_count_30_days == null or tag.send_count_30_days >= 10 ? "none" : "block" }};" title="Not enough data yet.  {{ tag.send_count_30_days }} emails sent in last 30 days">
                                 <i class="fa fa-clock-o tooltip" ></i>
                             </div>
                             <div class="loading" style="display: none;">
