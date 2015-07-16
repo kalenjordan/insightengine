@@ -228,7 +228,13 @@ class Model_Tag
         $lastSent = new \Carbon\Carbon($tag['last_sent']);
         $lastSentHoursAgo = $lastSent->diffInHours();
 
-        return ($lastSentHoursAgo > $biggestGap) ? "bad" : "good";
+        // If the last sent is more than 30% bigger than the biggest gap, flag it
+        $status = "good";
+        if ($lastSentHoursAgo > ($biggestGap * 1.3)) {
+            $status = "bad";
+        }
+
+        return $status;
     }
 
     /**

@@ -148,6 +148,13 @@
             }
         }
 
+        .refresh-tag {
+            position: absolute;
+            bottom: 1px;
+            right: 7px;
+            font-size: 14px;
+        }
+
         &:hover {
             .refresh-tag {
                 display: inline !important;
