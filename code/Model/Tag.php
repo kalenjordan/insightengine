@@ -7,6 +7,17 @@ class Model_Tag
     /** @var ORM */
     protected $_tagModel;
 
+    /** @var Model_SessionAbstract */
+    protected $_session;
+
+    /**
+     * @param $tagRecord ORM
+     */
+    public function __construct($tagRecord = null)
+    {
+        $this->_tagModel = $tagRecord;
+    }
+
     public function getTagRecord()
     {
         return $this->_tagModel;
@@ -21,6 +32,22 @@ class Model_Tag
     public function getUserId()
     {
         return $this->_userId;
+    }
+
+    public function getSession()
+    {
+        if (isset($this->_session)) {
+            return $this->_session;
+        }
+
+        $this->_session = new Model_Session();
+        return $this->_session;
+    }
+
+    public function setSession($session)
+    {
+        $this->_session = $session;
+        return $this;
     }
 
     public function fetchAll()
@@ -126,7 +153,7 @@ class Model_Tag
             throw new Exception("Tag data hasn't been loaded yet");
         }
 
-        $session = new Model_Session();
+        $session = $this->getSession();
 
         $mandrill = new Model_Mandrill();
         $mandrill->setKey($session->getKey());
@@ -155,7 +182,7 @@ class Model_Tag
             throw new Exception("Tag data hasn't been loaded yet");
         }
 
-        $session = new Model_Session();
+        $session = $this->getSession();
 
         $mandrill = new Model_Mandrill();
         $mandrill->setKey($session->getKey());

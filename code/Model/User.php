@@ -5,6 +5,14 @@ class Model_User
     protected $_userId;
     protected $_userData;
 
+    /**
+     * @param $userRecord ORM
+     */
+    public function __construct($userRecord = null)
+    {
+        $this->_userData = $userRecord;
+    }
+
     public function loadByUserId($userId)
     {
         $this->_userId = $userId;
@@ -56,6 +64,16 @@ class Model_User
         }
 
         return $userData['user_id'];
+    }
+
+    public function getMandrillApiKey()
+    {
+        $userData = $this->getUserData();
+        if (! isset($userData['mandrill_api_key'])) {
+            throw new Exception("Couldn't find mandrill_api_key in user record");
+        }
+
+        return $userData['mandrill_api_key'];
     }
 
     public function getUserData()

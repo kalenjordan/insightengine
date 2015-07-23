@@ -3,3 +3,4 @@
 /skin/.sass-cache
 /vendor
 /etc/local.json
+/var/*.log
