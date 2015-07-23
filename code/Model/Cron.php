@@ -4,6 +4,7 @@ class Model_Cron
 {
     protected $_username;
     protected $_tagToProcess;
+    protected $_badTags = array();
 
     public function __construct()
     {
@@ -55,8 +56,11 @@ class Model_Cron
      */
     protected function _runForUser($user)
     {
+        $this->_badTags = array();
+
         $orm = ORM::for_table('insightengine_tags')
             ->where_equal('user_id', $user->getUserId())
+            ->where_equal('is_active', 1)
             ->order_by_asc('updated_at');
 
         if ($this->getTagToProcess()) {
@@ -68,6 +72,10 @@ class Model_Cron
         foreach ($tags as $tagRecord) {
             $tag = new Model_Tag($tagRecord);
             $this->_processTag($user, $tag);
+        }
+
+        if (!empty($this->_badTags)) {
+            $this->_notifyBadTags($user);
         }
     }
 
@@ -86,9 +94,34 @@ class Model_Cron
         $biggestGap = $tag->getBiggestGap();
         $log->log("Processed tag " . $tag->getTag() . ": biggest gap is $biggestGap");
 
+        if ($tag->lastSentStatus($tag->getTagRecord()) == 'bad') {
+            $this->_badTags[] = $tag;
+        }
+
         if (! $tag->getSubject()) {
             $tag->processSubjectLine();
             $log->log("Processed tag subject line " . $tag->getTag() . ": " . $tag->getSubject());
         }
+    }
+
+    /**
+     * @param $user Model_User
+     */
+    protected function _notifyBadTags($user)
+    {
+        $username = $user->getUsername();
+        $message = "User: $username \r\n\r\n";
+
+        /** @var $tag Model_Tag */
+        foreach ($this->_badTags as $tag) {
+            $message .= "Tag: " . $tag->getTag() . ": " . $tag->getSummary($tag->getTagRecord());
+        }
+
+        $log = new Model_Log();
+        $log->log("Notifying $username of bad tags");
+
+        mail("kalen@magemail.co", "InsightEngine Alert for $username", $message, "From: cron@magemail.co");
+
+        return $this;
     }
 }
