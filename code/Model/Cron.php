@@ -41,7 +41,7 @@ class Model_Cron
     {
         $orm = ORM::for_table('insightengine_users')
             ->where_equal('is_active', 1);
-        
+
         if ($this->getUsername()) {
             $orm->where_equal('username', $this->getUsername());
         }
@@ -118,8 +118,10 @@ class Model_Cron
         $message = "User: $username \r\n\r\n";
 
         /** @var $tag Model_Tag */
+        $i = 1;
         foreach ($this->_badTags as $tag) {
-            $message .= "Tag: " . $tag->getTag() . ": " . $tag->getSummary($tag->getTagRecord());
+            $message .= $i . ". " . $tag->getTag() . ": " . $tag->getSummary($tag->getTagRecord()) . "\r\n\r\n";
+            $i++;
         }
 
         $log = new Model_Log();
