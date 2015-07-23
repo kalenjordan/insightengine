@@ -39,7 +39,9 @@ class Model_Cron
 
     public function run()
     {
-        $orm = ORM::for_table('insightengine_users');
+        $orm = ORM::for_table('insightengine_users')
+            ->where_equal('is_active', 1);
+        
         if ($this->getUsername()) {
             $orm->where_equal('username', $this->getUsername());
         }
@@ -56,6 +58,9 @@ class Model_Cron
      */
     protected function _runForUser($user)
     {
+        $log = new Model_Log();
+        $log->log("Processing user " . $user->getUsername());
+
         $this->_badTags = array();
 
         $orm = ORM::for_table('insightengine_tags')
