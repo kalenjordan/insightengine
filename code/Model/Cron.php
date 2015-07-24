@@ -120,7 +120,10 @@ class Model_Cron
         /** @var $tag Model_Tag */
         $i = 1;
         foreach ($this->_badTags as $tag) {
-            $message .= $i . ". " . $tag->getTag() . "\r\n" . $tag->getSummary($tag->getTagRecord()) . "\r\n\r\n";
+            $tagName = $tag->getTag();
+            $subject = $tag->getSubject();
+            $summary = $tag->getSummary($tag->getTagRecord());
+            $message .= $i . ". $tagName ($subject) \r\n$summary\r\n\r\n";
             $i++;
         }
 
