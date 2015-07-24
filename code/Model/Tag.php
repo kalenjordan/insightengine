@@ -246,18 +246,25 @@ class Model_Tag
     }
 
     /**
-     * @param $tag ORM
+     * @param $tagRecord ORM
      * @return string
      */
-    public function lastSentStatus($tag)
+    public function lastSentStatus($tagRecord)
     {
-        $biggestGap = $tag['biggest_gap_last_30_days'];
-        $lastSent = new \Carbon\Carbon($tag['last_sent']);
+        $biggestGap = $tagRecord['biggest_gap_last_30_days'];
+        $lastSent = new \Carbon\Carbon($tagRecord['last_sent']);
         $lastSentHoursAgo = $lastSent->diffInHours();
+
+        /**
+         * Margin of error
+         *
+         * If sent 30 emails in last 30 days, 60 / 30 = 2.  So Biggest gap can be 2X of last sent hours ago
+         */
+        $marginOfError = 1 + 60 / $tagRecord['send_count_30_days'];
 
         // If the last sent is more than 30% bigger than the biggest gap, flag it
         $status = "good";
-        if ($lastSentHoursAgo > ($biggestGap * 1.3)) {
+        if ($lastSentHoursAgo > ($biggestGap * $marginOfError)) {
             $status = "bad";
         }
 
