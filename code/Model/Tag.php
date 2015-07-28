@@ -260,7 +260,11 @@ class Model_Tag
          *
          * If sent 30 emails in last 30 days, 60 / 30 = 2.  So Biggest gap can be 2X of last sent hours ago
          */
-        $marginOfError = 1 + 60 / $tagRecord['send_count_30_days'];
+        if (isset($tagRecord['send_count_30_days']) && $tagRecord['send_count_30_days'] > 0) {
+            $marginOfError = 1.5 + 60 / $tagRecord['send_count_30_days'];
+        } else {
+            $marginOfError = 99;
+        }
 
         // If the last sent is more than 30% bigger than the biggest gap, flag it
         $status = "good";

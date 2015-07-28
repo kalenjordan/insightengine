@@ -58,6 +58,7 @@ class Model_Cron
      */
     protected function _runForUser($user)
     {
+        $user->fetchTagsFromMandrill();
         $log = new Model_Log();
         $log->log("Processing user " . $user->getUsername());
 

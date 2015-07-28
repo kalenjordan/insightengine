@@ -84,4 +84,34 @@ class Model_User
 
         return $this->_userData;
     }
+
+    public function fetchTagsFromMandrill()
+    {
+        $mandrill = new Model_Mandrill();
+        $mandrill->setKey($this->getMandrillApiKey());
+        $userId = $this->getUserId();
+
+        $tags = $mandrill->getTags();
+        $tagsFound = 0;
+        foreach ($tags as $tagData) {
+            $tagRecord = ORM::for_table('insightengine_tags')
+                ->where_equal('user_id', $userId)
+                ->where_equal('tag', $tagData['tag'])
+                ->find_one();
+            if (! $tagRecord) {
+                $tagsFound++;
+                $tagRecord = ORM::for_table('insightengine_tags')->create(array(
+                    'is_active' => 0,
+                    'user_id'   => $userId,
+                    'tag'       => $tagData['tag'],
+                ));
+            }
+
+            $tagRecord->set('send_count', $tagData['sent']);
+            $tagRecord->set_expr('updated_at', 'NOW()');
+            $tagRecord->save();
+        }
+
+        return $tagsFound;
+    }
 }
