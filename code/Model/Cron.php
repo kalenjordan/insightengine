@@ -49,7 +49,15 @@ class Model_Cron
         $users = $orm->find_many();
         foreach ($users as $userRecord) {
             $user = new Model_User($userRecord);
-            $this->_runForUser($user);
+            try {
+                $this->_runForUser($user);
+            } catch (Exception $e) {
+                $username = $user->getUsername();
+                echo "Error for user $username: " . $e->getMessage();
+
+                $log = new Model_Log();
+                $log->log($e->getTraceAsString());
+            }
         }
     }
 
